@@ -1,3 +1,27 @@
 html {
     background: #f8f8f8;
 }
+
+* {
+    font-family: "Lato", sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.boards-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-tile {
+    background: #95e4c0;
+    border-radius: 20px;
+    margin: 1vw;
+    padding: 4vh 4vw;
+    text-transform: capitalize;
+}

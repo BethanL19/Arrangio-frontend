@@ -1,10 +1,11 @@
-import { MyComponent } from "./MyComponent";
 import "./App.css";
+import BoardsList from "./BoardsList";
 
 function App() {
     return (
         <div className="App">
-            <MyComponent />
+            <h1>Arrangio</h1>
+            <BoardsList />
         </div>
     );
 }
