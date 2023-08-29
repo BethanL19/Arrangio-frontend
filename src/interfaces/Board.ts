@@ -1,6 +1,6 @@
-interface Board {
-    id: number;
+interface BoardInfo {
+    board_id: number;
     name: string;
 }
 
-export default Board;
+export default BoardInfo;
