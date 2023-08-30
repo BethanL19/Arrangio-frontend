@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ListProps from "../interfaces/List";
 import List from "./List";
 import fetchLists from "../utils/fetchLists";
+import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 
 interface BoardProps {
     board_id: number;
@@ -21,7 +22,12 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
     function handleBackClick() {
         setScreen("boardsList");
     }
-
+    const handleDragEnd = (result: DropResult) => {
+        if (!result.destination) {
+            return;
+        }
+        // todo
+    };
     return (
         <main>
             <div className="board-header">
@@ -38,13 +44,28 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
                 </Heading>
             </div>
             <div className="lists">
-                {lists.map((list) => (
-                    <List
-                        list_id={list.list_id}
-                        name={list.name}
-                        key={list.list_id}
-                    />
-                ))}
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    {lists.map((list) => (
+                        <Droppable
+                            droppableId={`${list.list_id}`}
+                            key={`${list.list_id}`}
+                        >
+                            {(provided) => (
+                                <div
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    <List
+                                        list_id={list.list_id}
+                                        name={list.name}
+                                        key={list.list_id}
+                                    />
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    ))}
+                </DragDropContext>
             </div>
         </main>
     );
