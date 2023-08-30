@@ -39,7 +39,8 @@ function EditCard({ card_id }: EditCardProps): JSX.Element {
                 onClick={onOpen}
                 icon={<EditIcon />}
                 aria-label="Edit button"
-                marginLeft={"1vw"}
+                marginLeft={"0.5vw"}
+                marginRight={"0.5vw"}
             />
             <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
                 <DrawerOverlay />
