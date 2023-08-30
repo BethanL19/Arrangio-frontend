@@ -22,7 +22,11 @@ function List({ list_id, name }: ListProps): JSX.Element {
                 <AddCard list_id={list_id} />
             </div>
             {cards.map((card: CardInfo) => (
-                <Card name={card.name} key={card.card_id} />
+                <Card
+                    name={card.name}
+                    key={card.card_id}
+                    card_id={card.card_id}
+                />
             ))}
         </div>
     );

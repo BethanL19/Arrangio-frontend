@@ -21,6 +21,7 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
     function handleBackClick() {
         setScreen("boardsList");
     }
+
     return (
         <main>
             <div className="board-header">

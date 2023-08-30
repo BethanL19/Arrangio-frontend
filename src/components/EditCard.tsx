@@ -9,31 +9,24 @@ import {
     Button,
     useDisclosure,
     Input,
+    IconButton,
 } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import axios from "axios";
 
-function AddBoard(): JSX.Element {
+interface EditCardProps {
+    card_id: number;
+}
+
+function EditCard({ card_id }: EditCardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState("");
 
-    async function handleAddBoard() {
+    async function handleEditCard() {
         const backend = "https://arrangio-backend.onrender.com/";
 
-        const response = await axios.post(backend + "boards", { name: name });
-
-        await axios.post(backend + "lists", {
-            board_id: response.data[0].board_id,
-            name: "To-Do",
-        });
-        await axios.post(backend + "lists", {
-            board_id: response.data[0].board_id,
-            name: "Doing",
-        });
-        await axios.post(backend + "lists", {
-            board_id: response.data[0].board_id,
-            name: "Done",
-        });
+        await axios.put(backend + `cards/${card_id}`, { name: name });
 
         setName("");
         onClose();
@@ -41,18 +34,18 @@ function AddBoard(): JSX.Element {
 
     return (
         <>
-            <Button
+            <IconButton
                 colorScheme="yellow"
                 onClick={onOpen}
-                textTransform={"capitalize"}
-            >
-                Add new Board
-            </Button>
+                icon={<EditIcon />}
+                aria-label="Edit button"
+                marginLeft={"1vw"}
+            />
             <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Add new board!</DrawerHeader>
+                    <DrawerHeader>Edit Card!</DrawerHeader>
 
                     <DrawerBody>
                         <Input
@@ -68,8 +61,8 @@ function AddBoard(): JSX.Element {
                         <Button variant="outline" mr={3} onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button onClick={handleAddBoard} colorScheme="yellow">
-                            Add
+                        <Button onClick={handleEditCard} colorScheme="yellow">
+                            Edit
                         </Button>
                     </DrawerFooter>
                 </DrawerContent>
@@ -78,4 +71,4 @@ function AddBoard(): JSX.Element {
     );
 }
 
-export default AddBoard;
+export default EditCard;

@@ -59,8 +59,8 @@ h1 {
 }
 
 .card {
+    text-align: center;
     width: 20vw;
-    height: 12vh;
     border-radius: 20px;
     background-color: white;
     color: black;
@@ -70,4 +70,5 @@ h1 {
     justify-content: center;
     align-items: center;
     margin: 1vh;
+    padding: 2vw;
 }
