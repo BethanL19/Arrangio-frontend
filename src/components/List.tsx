@@ -15,8 +15,12 @@ function List({ list_id, name }: ListProps): JSX.Element {
 
     return (
         <div className="list">
-            <Heading>{name}</Heading>
-            <AddCard list_id={list_id} />
+            <div className="list-header">
+                <Heading marginBottom={"1vh"} marginRight={"1vw"}>
+                    {name}
+                </Heading>
+                <AddCard list_id={list_id} />
+            </div>
             {cards.map((card: CardInfo) => (
                 <Card name={card.name} key={card.card_id} />
             ))}

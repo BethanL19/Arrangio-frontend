@@ -38,6 +38,7 @@ function AddCard({ list_id }: AddCardProps): JSX.Element {
                 onClick={onOpen}
                 icon={<AddIcon />}
                 aria-label="add button"
+                marginLeft={"1vw"}
             />
             <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
                 <DrawerOverlay />
