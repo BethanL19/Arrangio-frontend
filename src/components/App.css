@@ -45,6 +45,8 @@ h1 {
     width: 30vw;
     height: 80vh;
     border-radius: 20px;
+    flex-grow: 1;
+    min-height: 100px;
 }
 
 .list-header {

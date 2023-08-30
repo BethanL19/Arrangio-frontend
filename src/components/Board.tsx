@@ -4,6 +4,7 @@ import ListProps from "../interfaces/List";
 import List from "./List";
 import fetchLists from "../utils/fetchLists";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
+import axios from "axios";
 
 interface BoardProps {
     board_id: number;
@@ -22,12 +23,26 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
     function handleBackClick() {
         setScreen("boardsList");
     }
-    const handleDragEnd = (result: DropResult) => {
+    async function handleDragEnd(result: DropResult) {
+        const { destination, source, draggableId } = result;
+
         if (!result.destination) {
             return;
         }
-        // todo
-    };
+        if (
+            destination!.droppableId === source.droppableId &&
+            destination!.index === source.index
+        ) {
+            return;
+        }
+        if (destination !== undefined && destination !== null) {
+            const backend = "https://arrangio-backend.onrender.com/";
+
+            await axios.put(backend + `cards/move/${draggableId}`, {
+                list_id: parseInt(destination.droppableId),
+            });
+        }
+    }
     return (
         <main>
             <div className="board-header">
