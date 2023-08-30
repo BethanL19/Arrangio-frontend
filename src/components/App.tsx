@@ -14,7 +14,7 @@ function App() {
             <Heading
                 textTransform={"capitalize"}
                 textAlign={"center"}
-                marginBottom={"4vh"}
+                margin={"4vh"}
             >
                 Arrangio
             </Heading>

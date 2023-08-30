@@ -26,3 +26,48 @@ h1 {
     margin: 1vw;
     text-transform: capitalize;
 }
+
+.lists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: teal;
+    color: white;
+    padding: 4vh 4vw;
+    width: 30vw;
+    height: 80vh;
+    border-radius: 20px;
+}
+
+.list-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.board-header {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 1fr 1fr;
+}
+
+.card {
+    width: 20vw;
+    height: 12vh;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh;
+}

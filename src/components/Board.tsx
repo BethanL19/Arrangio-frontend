@@ -23,15 +23,28 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
     }
     return (
         <main>
-            <Button onClick={handleBackClick}>Back</Button>
-            <Heading>{name}</Heading>
-            {lists.map((list) => (
-                <List
-                    list_id={list.list_id}
-                    name={list.name}
-                    key={list.list_id}
-                />
-            ))}
+            <div className="board-header">
+                <Button
+                    onClick={handleBackClick}
+                    fontSize={"1.2rem"}
+                    marginLeft={"16px"}
+                >
+                    ← Back
+                </Button>
+                <div></div>
+                <Heading textAlign={"center"} marginBottom={"2vh"}>
+                    {name}
+                </Heading>
+            </div>
+            <div className="lists">
+                {lists.map((list) => (
+                    <List
+                        list_id={list.list_id}
+                        name={list.name}
+                        key={list.list_id}
+                    />
+                ))}
+            </div>
         </main>
     );
 }
