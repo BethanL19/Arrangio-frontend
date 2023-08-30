@@ -45,6 +45,8 @@ h1 {
     width: 30vw;
     height: 80vh;
     border-radius: 20px;
+    flex-grow: 1;
+    min-height: 100px;
 }
 
 .list-header {
@@ -59,8 +61,8 @@ h1 {
 }
 
 .card {
+    text-align: center;
     width: 20vw;
-    height: 12vh;
     border-radius: 20px;
     background-color: white;
     color: black;
@@ -70,4 +72,5 @@ h1 {
     justify-content: center;
     align-items: center;
     margin: 1vh;
+    padding: 2vw;
 }

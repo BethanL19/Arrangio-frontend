@@ -29,6 +29,7 @@ function AddCard({ list_id }: AddCardProps): JSX.Element {
         await axios.post(backend + "cards", { name: name, list_id: list_id });
 
         setName("");
+        onClose();
     }
 
     return (
