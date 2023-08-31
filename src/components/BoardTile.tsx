@@ -6,6 +6,7 @@ interface BoardTileProps {
     id: number;
     setScreen: React.Dispatch<React.SetStateAction<string>>;
     setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
+    colour: string;
 }
 
 function BoardTile({
@@ -13,19 +14,20 @@ function BoardTile({
     id,
     setScreen,
     setBoard,
+    colour,
 }: BoardTileProps): JSX.Element {
     function handleTileClick() {
-        setBoard({ board_id: id, name: name });
+        setBoard({ board_id: id, name: name, colour: colour });
         setScreen("board");
     }
 
     return (
         <Card
             className="board-tile"
-            colorScheme="teal"
+            colorScheme={colour}
             onClick={handleTileClick}
         >
-            <CardBody bg="teal" color="white">
+            <CardBody bg={colour} color="white">
                 <Heading>{name}</Heading>
             </CardBody>
         </Card>

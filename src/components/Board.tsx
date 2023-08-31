@@ -5,20 +5,28 @@ import List from "./List";
 import fetchLists from "../utils/fetchLists";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import axios from "axios";
+import ColourSelector from "./ColourSelector";
+import BoardInfo from "../interfaces/Board";
 
 interface BoardProps {
-    board_id: number;
-    name: string;
+    board: BoardInfo;
     setScreen: React.Dispatch<React.SetStateAction<string>>;
+    setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
+    setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
 }
 
-function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
+function Board({
+    board,
+    setScreen,
+    setBoards,
+    setBoard,
+}: BoardProps): JSX.Element {
     const [lists, setLists] = useState<ListProps[]>([]);
 
     useEffect(() => {
-        fetchLists(setLists, board_id);
+        fetchLists(setLists, board.board_id);
         console.log(lists.length);
-    }, [lists, board_id]);
+    }, [lists, board.board_id]);
 
     function handleBackClick() {
         setScreen("boardsList");
@@ -55,8 +63,15 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
                 </Button>
                 <div></div>
                 <Heading textAlign={"center"} marginBottom={"2vh"}>
-                    {name}
+                    {board.name}
                 </Heading>
+                <div>
+                    <ColourSelector
+                        board={board}
+                        setBoards={setBoards}
+                        setBoard={setBoard}
+                    />
+                </div>
             </div>
             <div className="lists">
                 <DragDropContext onDragEnd={handleDragEnd}>
@@ -74,8 +89,8 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
                                         list_id={list.list_id}
                                         name={list.name}
                                         key={list.list_id}
+                                        board_colour={board.colour}
                                     />
-                                    {provided.placeholder}
                                 </div>
                             )}
                         </Droppable>

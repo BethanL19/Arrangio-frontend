@@ -15,20 +15,24 @@ import { EditIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import axios from "axios";
 
-interface EditCardProps {
-    card_id: number;
+interface EditCommentProps {
+    comment_id: number;
+    comment_text: string;
 }
 
-function EditCard({ card_id }: EditCardProps): JSX.Element {
+function EditComment({
+    comment_id,
+    comment_text,
+}: EditCommentProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [name, setName] = useState("");
+    const [text, setText] = useState(comment_text);
 
-    async function handleEditCard() {
+    async function handleEditComment() {
         const backend = "https://arrangio-backend.onrender.com/";
 
-        await axios.put(backend + `cards/${card_id}`, { name: name });
+        await axios.put(backend + `comments/${comment_id}`, { text: text });
 
-        setName("");
+        setText("");
         onClose();
     }
 
@@ -46,14 +50,14 @@ function EditCard({ card_id }: EditCardProps): JSX.Element {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Edit Card!</DrawerHeader>
+                    <DrawerHeader>Edit Comment!</DrawerHeader>
 
                     <DrawerBody>
                         <Input
-                            value={name}
+                            value={text}
                             placeholder="Type here..."
                             onChange={(e) => {
-                                setName(e.target.value);
+                                setText(e.target.value);
                             }}
                         />
                     </DrawerBody>
@@ -62,7 +66,10 @@ function EditCard({ card_id }: EditCardProps): JSX.Element {
                         <Button variant="outline" mr={3} onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button onClick={handleEditCard} colorScheme="yellow">
+                        <Button
+                            onClick={handleEditComment}
+                            colorScheme="yellow"
+                        >
                             Edit
                         </Button>
                     </DrawerFooter>
@@ -72,4 +79,4 @@ function EditCard({ card_id }: EditCardProps): JSX.Element {
     );
 }
 
-export default EditCard;
+export default EditComment;
