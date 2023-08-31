@@ -7,6 +7,9 @@ import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import axios from "axios";
 import ColourSelector from "./ColourSelector";
 import BoardInfo from "../interfaces/Board";
+import ConfettiExplosion from "react-confetti-explosion";
+import { useSound } from "use-sound";
+import sound from "../sound.mp3";
 
 interface BoardProps {
     board: BoardInfo;
@@ -22,11 +25,25 @@ function Board({
     setBoard,
 }: BoardProps): JSX.Element {
     const [lists, setLists] = useState<ListProps[]>([]);
+    const [isExploding, setIsExploding] = useState(false);
+    const [play] = useSound(sound, {
+        interrupt: true,
+        volume: 0.5,
+    });
 
     useEffect(() => {
         fetchLists(setLists, board.board_id);
         console.log(lists.length);
     }, [lists, board.board_id]);
+
+    function sleep(ms: number) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+    useEffect(() => {
+        if (isExploding) {
+            sleep(4000).then(() => setIsExploding(false));
+        }
+    }, [isExploding]);
 
     function handleBackClick() {
         setScreen("boardsList");
@@ -49,6 +66,10 @@ function Board({
             await axios.put(backend + `cards/move/${draggableId}`, {
                 list_id: parseInt(destination.droppableId),
             });
+            if (destination.droppableId > source.droppableId) {
+                setIsExploding(true);
+                play();
+            }
         }
     }
     return (
@@ -65,6 +86,7 @@ function Board({
                 <Heading textAlign={"center"} marginBottom={"2vh"}>
                     {board.name}
                 </Heading>
+
                 <div>
                     <ColourSelector
                         board={board}
@@ -72,6 +94,16 @@ function Board({
                         setBoard={setBoard}
                     />
                 </div>
+            </div>
+            <div className="confetti">
+                {isExploding && (
+                    <ConfettiExplosion
+                        force={0.8}
+                        duration={3000}
+                        particleCount={250}
+                        width={1600}
+                    />
+                )}
             </div>
             <div className="lists">
                 <DragDropContext onDragEnd={handleDragEnd}>
