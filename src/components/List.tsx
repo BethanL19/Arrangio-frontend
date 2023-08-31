@@ -2,12 +2,20 @@ import { Heading } from "@chakra-ui/react";
 import CardInfo from "../interfaces/Card";
 import { useState, useEffect } from "react";
 import Card from "./Card";
-import ListProps from "../interfaces/List";
 import fetchCards from "../utils/fetchCards";
 import AddCard from "./AddCard";
 import { Draggable } from "react-beautiful-dnd";
 
-function List({ list_id, name }: ListProps): JSX.Element {
+interface ListWithColourProps {
+    list_id: number;
+    name: string;
+    board_colour: string;
+}
+function List({
+    list_id,
+    name,
+    board_colour,
+}: ListWithColourProps): JSX.Element {
     const [cards, setCards] = useState<CardInfo[]>([]);
 
     useEffect(() => {
@@ -15,7 +23,7 @@ function List({ list_id, name }: ListProps): JSX.Element {
     }, [cards, list_id]);
 
     return (
-        <div className="list">
+        <div className="list" style={{ backgroundColor: board_colour }}>
             <div className="list-header">
                 <Heading marginBottom={"1vh"} marginRight={"1vw"}>
                     {name}

@@ -8,6 +8,7 @@ import BoardInfo from "../interfaces/Board";
 function App() {
     const [screen, setScreen] = useState("boardsList");
     const [board, setBoard] = useState<BoardInfo>();
+    const [boards, setBoards] = useState<BoardInfo[]>([]);
 
     return (
         <div className="App">
@@ -19,13 +20,19 @@ function App() {
                 Arrangio
             </Heading>
             {screen === "boardsList" && (
-                <BoardsList setBoard={setBoard} setScreen={setScreen} />
+                <BoardsList
+                    setBoard={setBoard}
+                    setScreen={setScreen}
+                    boards={boards}
+                    setBoards={setBoards}
+                />
             )}
             {screen === "board" && board && (
                 <Board
-                    board_id={board.board_id}
-                    name={board.name}
+                    board={board}
                     setScreen={setScreen}
+                    setBoards={setBoards}
+                    setBoard={setBoard}
                 />
             )}
         </div>
