@@ -1,4 +1,4 @@
-import { InfoOutlineIcon, SunIcon } from "@chakra-ui/icons";
+import { DeleteIcon, InfoOutlineIcon, SunIcon } from "@chakra-ui/icons";
 import {
     Modal,
     ModalOverlay,
@@ -55,6 +55,13 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
             text: addComment,
         });
         setAddComment("");
+        fetchComments(setComments, card_id);
+    }
+
+    async function handleDeleteComment(comment_id: number) {
+        const backend = "https://arrangio-backend.onrender.com/";
+
+        await axios.delete(backend + `comments/${comment_id}`);
         fetchComments(setComments, card_id);
     }
 
@@ -144,6 +151,14 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
                                         <EditablePreview />
                                         <EditableTextarea />
                                     </Editable>
+                                    <IconButton
+                                        icon={<DeleteIcon />}
+                                        colorScheme={"red"}
+                                        aria-label="delete button"
+                                        onClick={() => {
+                                            handleDeleteComment(com.comment_id);
+                                        }}
+                                    />
                                 </ListItem>
                             ))}
                         </List>
