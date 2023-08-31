@@ -15,6 +15,9 @@ import {
     List,
     ListItem,
     ListIcon,
+    Editable,
+    EditableTextarea,
+    EditablePreview,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import InputEdit from "./InputEdit";
@@ -33,7 +36,7 @@ interface CommentProps {
 }
 
 function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
-    const [comment, setComment] = useState("");
+    const [addComment, setAddComment] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [comments, setComments] = useState<CommentProps[]>([]);
 
@@ -42,17 +45,39 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
 
     useEffect(() => {
         fetchComments(setComments, card_id);
-    }, [comments, card_id]);
+    }, [card_id]);
 
     async function handleAddComment() {
         const backend = "https://arrangio-backend.onrender.com/";
 
         await axios.post(backend + "comments", {
             card_id: card_id,
-            text: comment,
+            text: addComment,
         });
-        setComment("");
+        setAddComment("");
         fetchComments(setComments, card_id);
+    }
+
+    async function handleSubmitComment(id: number, text: string) {
+        const backend = "https://arrangio-backend.onrender.com/";
+
+        await axios.put(backend + `comments/${id}`, { text: text });
+        fetchComments(setComments, card_id);
+    }
+
+    function handleEditComment(id: number, text: string) {
+        const updatedComments: CommentProps[] = [];
+        for (const com of comments) {
+            if (com.comment_id !== id) {
+                updatedComments.push(com);
+            } else {
+                const newComment = com;
+                newComment.text = text;
+                updatedComments.push(newComment);
+            }
+        }
+
+        setComments(updatedComments);
     }
 
     return (
@@ -80,9 +105,9 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
                             <FormLabel>Comments</FormLabel>
                             <Textarea
                                 placeholder="Add comment..."
-                                value={comment}
+                                value={addComment}
                                 onChange={(e) => {
-                                    setComment(e.target.value);
+                                    setAddComment(e.target.value);
                                 }}
                             />
                             <Button
@@ -100,7 +125,29 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
                                         as={SunIcon}
                                         color={"yellow.500"}
                                     />
-                                    {com.text}
+                                    {/* {com.text}
+                                    <EditComment
+                                        comment_id={com.comment_id}
+                                        comment_text={com.text}
+                                    /> */}
+                                    <Editable
+                                        value={com.text}
+                                        onChange={(e) => {
+                                            handleEditComment(
+                                                com.comment_id,
+                                                e
+                                            );
+                                        }}
+                                        onSubmit={(e) => {
+                                            handleSubmitComment(
+                                                com.comment_id,
+                                                e
+                                            );
+                                        }}
+                                    >
+                                        <EditablePreview />
+                                        <EditableTextarea />
+                                    </Editable>
                                 </ListItem>
                             ))}
                         </List>
