@@ -3,11 +3,9 @@ import {
     Editable,
     EditableInput,
     EditablePreview,
-    useEditableControls,
     ButtonGroup,
     IconButton,
     Flex,
-    Input,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
@@ -19,32 +17,32 @@ interface InputEditProps {
 
 function InputEdit({ card_id, name }: InputEditProps): JSX.Element {
     const [inputValue, setInputValue] = useState(name);
+    const [isEditing, setIsEditing] = useState(false);
 
     async function handleEditCard() {
         const backend = "https://arrangio-backend.onrender.com/";
 
         await axios.put(backend + `cards/${card_id}`, { name: inputValue });
+        setIsEditing(false);
+    }
+    function handleStartEditing() {
+        setIsEditing(true);
+    }
+    function handleCancelEditing() {
+        setIsEditing(false);
     }
     function EditableControls() {
-        const {
-            isEditing,
-            getSubmitButtonProps,
-            getCancelButtonProps,
-            getEditButtonProps,
-        } = useEditableControls();
-        console.log(getSubmitButtonProps);
         return isEditing ? (
             <ButtonGroup justifyContent="center" size="sm">
                 <IconButton
                     icon={<CheckIcon />}
-                    {...getSubmitButtonProps()}
                     aria-label="check button"
                     onClick={handleEditCard}
                 />
                 <IconButton
                     icon={<CloseIcon />}
-                    {...getCancelButtonProps()}
                     aria-label="close button"
+                    onClick={handleCancelEditing}
                 />
             </ButtonGroup>
         ) : (
@@ -52,8 +50,8 @@ function InputEdit({ card_id, name }: InputEditProps): JSX.Element {
                 <IconButton
                     size="sm"
                     icon={<EditIcon />}
-                    {...getEditButtonProps()}
                     aria-label="edit button"
+                    onClick={handleStartEditing}
                 />
             </Flex>
         );
@@ -62,18 +60,14 @@ function InputEdit({ card_id, name }: InputEditProps): JSX.Element {
     return (
         <Editable
             textAlign="center"
-            defaultValue={inputValue}
             fontSize="2xl"
-            isPreviewFocusable={false}
+            isPreviewFocusable={isEditing}
+            value={inputValue}
+            onChange={(e) => setInputValue(e)}
+            onSubmit={handleEditCard}
         >
             <EditablePreview />
-            <Input
-                as={EditableInput}
-                value={inputValue}
-                onChange={(e) => {
-                    setInputValue(e.target.value);
-                }}
-            />
+            <EditableInput />
             <EditableControls />
         </Editable>
     );

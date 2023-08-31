@@ -125,11 +125,7 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
                                         as={SunIcon}
                                         color={"yellow.500"}
                                     />
-                                    {/* {com.text}
-                                    <EditComment
-                                        comment_id={com.comment_id}
-                                        comment_text={com.text}
-                                    /> */}
+
                                     <Editable
                                         value={com.text}
                                         onChange={(e) => {
