@@ -75,7 +75,6 @@ function Board({ board_id, name, setScreen }: BoardProps): JSX.Element {
                                         name={list.name}
                                         key={list.list_id}
                                     />
-                                    {provided.placeholder}
                                 </div>
                             )}
                         </Droppable>
