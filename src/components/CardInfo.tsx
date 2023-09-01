@@ -19,23 +19,14 @@ import {
     EditableTextarea,
     EditablePreview,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
 import InputEdit from "./InputEdit";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import fetchComments from "../utils/fetchComments";
+import CommentProps from "../interfaces/CommentProps";
+import CardInfoProps from "../interfaces/CardInfoProps";
 
-interface CardInfoProps {
-    name: string;
-    card_id: number;
-}
-
-interface CommentProps {
-    card_id: number;
-    comment_id: number;
-    text: string;
-}
-
-function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
+function CardInfo({ name, card_id, backendUrl }: CardInfoProps): JSX.Element {
     const [addComment, setAddComment] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [comments, setComments] = useState<CommentProps[]>([]);
@@ -44,32 +35,26 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
     const finalRef = useRef(null);
 
     useEffect(() => {
-        fetchComments(setComments, card_id);
-    }, [card_id]);
+        fetchComments(setComments, card_id, backendUrl);
+    }, [card_id, backendUrl]);
 
     async function handleAddComment() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.post(backend + "comments", {
+        await axios.post(backendUrl + "comments", {
             card_id: card_id,
             text: addComment,
         });
         setAddComment("");
-        fetchComments(setComments, card_id);
+        fetchComments(setComments, card_id, backendUrl);
     }
 
     async function handleDeleteComment(comment_id: number) {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.delete(backend + `comments/${comment_id}`);
-        fetchComments(setComments, card_id);
+        await axios.delete(backendUrl + `comments/${comment_id}`);
+        fetchComments(setComments, card_id, backendUrl);
     }
 
     async function handleSubmitComment(id: number, text: string) {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.put(backend + `comments/${id}`, { text: text });
-        fetchComments(setComments, card_id);
+        await axios.put(backendUrl + `comments/${id}`, { text: text });
+        fetchComments(setComments, card_id, backendUrl);
     }
 
     function handleEditComment(id: number, text: string) {
@@ -103,7 +88,11 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>
-                        <InputEdit card_id={card_id} name={name} />
+                        <InputEdit
+                            card_id={card_id}
+                            name={name}
+                            backendUrl={backendUrl}
+                        />
                     </ModalHeader>
 
                     <ModalCloseButton />

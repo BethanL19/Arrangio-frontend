@@ -12,25 +12,26 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
+import AddBoardProps from "../interfaces/AddBoardProps";
 
-function AddBoard(): JSX.Element {
+function AddBoard({ backendUrl }: AddBoardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState("");
 
     async function handleAddBoard() {
-        const backend = "https://arrangio-backend.onrender.com/";
+        const response = await axios.post(backendUrl + "boards", {
+            name: name,
+        });
 
-        const response = await axios.post(backend + "boards", { name: name });
-
-        await axios.post(backend + "lists", {
+        await axios.post(backendUrl + "lists", {
             board_id: response.data[0].board_id,
             name: "To-Do",
         });
-        await axios.post(backend + "lists", {
+        await axios.post(backendUrl + "lists", {
             board_id: response.data[0].board_id,
             name: "Doing",
         });
-        await axios.post(backend + "lists", {
+        await axios.post(backendUrl + "lists", {
             board_id: response.data[0].board_id,
             name: "Done",
         });

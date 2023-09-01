@@ -1,29 +1,24 @@
 import { useEffect } from "react";
-import BoardInfo from "../interfaces/Board";
 import fetchBoards from "../utils/fetchBoards";
 import BoardTile from "./BoardTile";
 import AddBoard from "./AddBoard";
-
-interface BoardsListProps {
-    setScreen: React.Dispatch<React.SetStateAction<string>>;
-    setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
-    boards: BoardInfo[];
-    setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
-}
+import BoardInfo from "../interfaces/Board";
+import BoardsListProps from "../interfaces/BoardListProps";
 
 function BoardsList({
     setScreen,
-    setBoard,
+    setSelectedBoard,
     boards,
     setBoards,
+    backendUrl,
 }: BoardsListProps): JSX.Element {
     useEffect(() => {
-        fetchBoards(setBoards);
-    }, [boards, setBoards]);
+        fetchBoards(setBoards, backendUrl);
+    }, [boards, setBoards, backendUrl]);
 
     return (
         <div className="boards-page">
-            <AddBoard />
+            <AddBoard backendUrl={backendUrl} />
             <main className="boards-list">
                 {boards.map((board: BoardInfo, index) => (
                     <BoardTile
@@ -31,7 +26,7 @@ function BoardsList({
                         id={board.board_id}
                         key={index}
                         setScreen={setScreen}
-                        setBoard={setBoard}
+                        setSelectedBoard={setSelectedBoard}
                         colour={board.colour}
                     />
                 ))}

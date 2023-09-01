@@ -14,19 +14,14 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import axios from "axios";
+import EditCardProps from "../interfaces/EditCardProps";
 
-interface EditCardProps {
-    card_id: number;
-}
-
-function EditCard({ card_id }: EditCardProps): JSX.Element {
+function EditCard({ card_id, backendUrl }: EditCardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState("");
 
     async function handleEditCard() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.put(backend + `cards/${card_id}`, { name: name });
+        await axios.put(backendUrl + `cards/${card_id}`, { name: name });
 
         setName("");
         onClose();

@@ -9,20 +9,14 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
+import InputEditProps from "../interfaces/InputEditProps";
 
-interface InputEditProps {
-    card_id: number;
-    name: string;
-}
-
-function InputEdit({ card_id, name }: InputEditProps): JSX.Element {
+function InputEdit({ card_id, name, backendUrl }: InputEditProps): JSX.Element {
     const [inputValue, setInputValue] = useState(name);
     const [isEditing, setIsEditing] = useState(false);
 
     async function handleEditCard() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.put(backend + `cards/${card_id}`, { name: inputValue });
+        await axios.put(backendUrl + `cards/${card_id}`, { name: inputValue });
         setIsEditing(false);
     }
     function handleStartEditing() {

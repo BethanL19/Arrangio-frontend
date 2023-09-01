@@ -10,18 +10,13 @@ import {
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import ColourButtons from "./Colours";
-import BoardInfo from "../interfaces/Board";
-
-interface ColourSelectorProps {
-    board: BoardInfo;
-    setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
-    setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
-}
+import ColourSelectorProps from "../interfaces/ColourSelectorProps";
 
 function ColourSelector({
     board,
     setBoards,
     setBoard,
+    backendUrl,
 }: ColourSelectorProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -45,6 +40,7 @@ function ColourSelector({
                             board={board}
                             setBoards={setBoards}
                             setBoard={setBoard}
+                            backendUrl={backendUrl}
                         />
                     </DrawerBody>
                 </DrawerContent>

@@ -3,25 +3,23 @@ import { IconButton } from "@chakra-ui/react";
 import axios from "axios";
 import EditCard from "./EditCard";
 import CardInfo from "./CardInfo";
+import CardProps from "../interfaces/CardProps";
 
-interface CardProps {
-    name: string;
-    card_id: number;
-}
-
-function Card({ name, card_id }: CardProps): JSX.Element {
+function Card({ name, card_id, backendUrl }: CardProps): JSX.Element {
     async function handleDelete() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.delete(backend + `cards/${card_id}`);
+        await axios.delete(backendUrl + `cards/${card_id}`);
     }
 
     return (
         <div className="card">
             <p>{name}</p>
             <div className="button-container">
-                <CardInfo name={name} card_id={card_id} />
-                <EditCard card_id={card_id} />
+                <CardInfo
+                    name={name}
+                    card_id={card_id}
+                    backendUrl={backendUrl}
+                />
+                <EditCard card_id={card_id} backendUrl={backendUrl} />
                 <IconButton
                     icon={<DeleteIcon />}
                     aria-label="delete button"

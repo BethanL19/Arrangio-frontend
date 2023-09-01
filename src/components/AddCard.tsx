@@ -14,19 +14,17 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import axios from "axios";
+import AddCardProps from "../interfaces/AddCardProps";
 
-interface AddCardProps {
-    list_id: number;
-}
-
-function AddCard({ list_id }: AddCardProps): JSX.Element {
+function AddCard({ list_id, backendUrl }: AddCardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState("");
 
     async function handleAddCard() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.post(backend + "cards", { name: name, list_id: list_id });
+        await axios.post(backendUrl + "cards", {
+            name: name,
+            list_id: list_id,
+        });
 
         setName("");
         onClose();

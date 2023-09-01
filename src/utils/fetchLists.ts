@@ -3,11 +3,10 @@ import axios from "axios";
 
 async function fetchLists(
     setLists: React.Dispatch<React.SetStateAction<ListProps[]>>,
-    board_id: number
+    board_id: number,
+    backendUrl: string
 ) {
-    const backend = "https://arrangio-backend.onrender.com/";
-
-    const response = await axios.get(backend + `lists/${board_id}`);
+    const response = await axios.get(backendUrl + `lists/${board_id}`);
 
     setLists(response.data);
 }

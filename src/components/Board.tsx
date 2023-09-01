@@ -1,28 +1,22 @@
-import { Button, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import ListProps from "../interfaces/List";
-import List from "./List";
-import fetchLists from "../utils/fetchLists";
-import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import axios from "axios";
-import ColourSelector from "./ColourSelector";
-import BoardInfo from "../interfaces/Board";
+import { Button, Heading } from "@chakra-ui/react";
+import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import ConfettiExplosion from "react-confetti-explosion";
 import { useSound } from "use-sound";
+import { useEffect, useState } from "react";
+import List from "./List";
+import ColourSelector from "./ColourSelector";
+import ListProps from "../interfaces/List";
+import BoardProps from "../interfaces/BoardProps";
+import fetchLists from "../utils/fetchLists";
 import sound from "../sound.mp3";
 
-interface BoardProps {
-    board: BoardInfo;
-    setScreen: React.Dispatch<React.SetStateAction<string>>;
-    setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
-    setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
-}
-
 function Board({
-    board,
+    selectedBoard,
     setScreen,
     setBoards,
-    setBoard,
+    setSelectedBoard,
+    backendUrl,
 }: BoardProps): JSX.Element {
     const [lists, setLists] = useState<ListProps[]>([]);
     const [isExploding, setIsExploding] = useState(false);
@@ -31,14 +25,15 @@ function Board({
         volume: 0.5,
     });
 
-    useEffect(() => {
-        fetchLists(setLists, board.board_id);
-        console.log(lists.length);
-    }, [lists, board.board_id]);
-
     function sleep(ms: number) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
+
+    useEffect(() => {
+        fetchLists(setLists, selectedBoard.board_id, backendUrl);
+        console.log(lists.length);
+    }, [lists, selectedBoard.board_id, backendUrl]);
+
     useEffect(() => {
         if (isExploding) {
             sleep(4000).then(() => setIsExploding(false));
@@ -48,6 +43,7 @@ function Board({
     function handleBackClick() {
         setScreen("boardsList");
     }
+
     async function handleDragEnd(result: DropResult) {
         const { destination, source, draggableId } = result;
 
@@ -61,11 +57,10 @@ function Board({
             return;
         }
         if (destination !== undefined && destination !== null) {
-            const backend = "https://arrangio-backend.onrender.com/";
-
-            await axios.put(backend + `cards/move/${draggableId}`, {
+            await axios.put(backendUrl + `cards/move/${draggableId}`, {
                 list_id: parseInt(destination.droppableId),
             });
+
             if (destination.droppableId > source.droppableId) {
                 setIsExploding(true);
                 play();
@@ -84,14 +79,15 @@ function Board({
                 </Button>
                 <div></div>
                 <Heading textAlign={"center"} marginBottom={"2vh"}>
-                    {board.name}
+                    {selectedBoard.name}
                 </Heading>
 
                 <div>
                     <ColourSelector
-                        board={board}
+                        board={selectedBoard}
                         setBoards={setBoards}
-                        setBoard={setBoard}
+                        setBoard={setSelectedBoard}
+                        backendUrl={backendUrl}
                     />
                 </div>
             </div>
@@ -121,7 +117,8 @@ function Board({
                                         list_id={list.list_id}
                                         name={list.name}
                                         key={list.list_id}
-                                        board_colour={board.colour}
+                                        board_colour={selectedBoard.colour}
+                                        backendUrl={backendUrl}
                                     />
                                 </div>
                             )}
