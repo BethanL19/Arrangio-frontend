@@ -19,7 +19,11 @@ function Card({ name, card_id, backendUrl }: CardProps): JSX.Element {
                     card_id={card_id}
                     backendUrl={backendUrl}
                 />
-                <EditCard card_id={card_id} backendUrl={backendUrl} />
+                <EditCard
+                    card_id={card_id}
+                    backendUrl={backendUrl}
+                    card_name={name}
+                />
                 <IconButton
                     icon={<DeleteIcon />}
                     aria-label="delete button"

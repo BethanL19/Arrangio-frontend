@@ -21,6 +21,11 @@ function AddCard({ list_id, backendUrl }: AddCardProps): JSX.Element {
     const [name, setName] = useState("");
 
     async function handleAddCard() {
+        if (name.length === 0) {
+            window.alert("Name can't be blank!");
+            return;
+        }
+
         await axios.post(backendUrl + "cards", {
             name: name,
             list_id: list_id,

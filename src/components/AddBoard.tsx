@@ -19,6 +19,10 @@ function AddBoard({ backendUrl }: AddBoardProps): JSX.Element {
     const [name, setName] = useState("");
 
     async function handleAddBoard() {
+        if (name.length === 0) {
+            window.alert("Name can't be blank!");
+            return;
+        }
         const response = await axios.post(backendUrl + "boards", {
             name: name,
         });
