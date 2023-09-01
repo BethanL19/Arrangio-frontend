@@ -11,7 +11,6 @@ function App() {
     const [screen, setScreen] = useState("boardsList");
     const [selectedBoard, setSelectedBoard] = useState<BoardInfo>();
     const [boards, setBoards] = useState<BoardInfo[]>([]);
-    console.log(backendUrl);
 
     return (
         <div className="App">

@@ -31,7 +31,6 @@ function Board({
 
     useEffect(() => {
         fetchLists(setLists, selectedBoard.board_id, backendUrl);
-        console.log(lists.length);
     }, [lists, selectedBoard.board_id, backendUrl]);
 
     useEffect(() => {
