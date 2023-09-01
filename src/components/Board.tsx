@@ -6,20 +6,10 @@ import fetchLists from "../utils/fetchLists";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import axios from "axios";
 import ColourSelector from "./ColourSelector";
-import BoardInfo from "../interfaces/Board";
 import ConfettiExplosion from "react-confetti-explosion";
 import { useSound } from "use-sound";
 import sound from "../sound.mp3";
-
-interface BoardProps {
-    selectedBoard: BoardInfo;
-    setScreen: React.Dispatch<React.SetStateAction<string>>;
-    setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
-    setSelectedBoard: React.Dispatch<
-        React.SetStateAction<BoardInfo | undefined>
-    >;
-    backendUrl: string;
-}
+import BoardProps from "../interfaces/BoardProps";
 
 function Board({
     selectedBoard,

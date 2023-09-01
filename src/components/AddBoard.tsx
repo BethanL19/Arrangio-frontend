@@ -12,10 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
-
-interface AddBoardProps {
-    backendUrl: string;
-}
+import AddBoardProps from "../interfaces/AddBoardProps";
 
 function AddBoard({ backendUrl }: AddBoardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();

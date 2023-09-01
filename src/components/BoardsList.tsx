@@ -3,16 +3,7 @@ import BoardInfo from "../interfaces/Board";
 import fetchBoards from "../utils/fetchBoards";
 import BoardTile from "./BoardTile";
 import AddBoard from "./AddBoard";
-
-interface BoardsListProps {
-    setScreen: React.Dispatch<React.SetStateAction<string>>;
-    setSelectedBoard: React.Dispatch<
-        React.SetStateAction<BoardInfo | undefined>
-    >;
-    boards: BoardInfo[];
-    setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
-    backendUrl: string;
-}
+import BoardsListProps from "../interfaces/BoardListProps";
 
 function BoardsList({
     setScreen,

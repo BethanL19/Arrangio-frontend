@@ -23,18 +23,8 @@ import { useEffect, useRef, useState } from "react";
 import InputEdit from "./InputEdit";
 import axios from "axios";
 import fetchComments from "../utils/fetchComments";
-
-interface CardInfoProps {
-    name: string;
-    card_id: number;
-    backendUrl: string;
-}
-
-interface CommentProps {
-    card_id: number;
-    comment_id: number;
-    text: string;
-}
+import CommentProps from "../interfaces/CommentProps";
+import CardInfoProps from "../interfaces/CardInfoProps";
 
 function CardInfo({ name, card_id, backendUrl }: CardInfoProps): JSX.Element {
     const [addComment, setAddComment] = useState("");

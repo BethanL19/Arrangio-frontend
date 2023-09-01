@@ -9,12 +9,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
-
-interface InputEditProps {
-    card_id: number;
-    name: string;
-    backendUrl: string;
-}
+import InputEditProps from "../interfaces/InputEditProps";
 
 function InputEdit({ card_id, name, backendUrl }: InputEditProps): JSX.Element {
     const [inputValue, setInputValue] = useState(name);

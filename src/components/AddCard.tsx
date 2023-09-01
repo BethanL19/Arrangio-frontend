@@ -14,11 +14,7 @@ import {
 import { AddIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import axios from "axios";
-
-interface AddCardProps {
-    list_id: number;
-    backendUrl: string;
-}
+import AddCardProps from "../interfaces/AddCardProps";
 
 function AddCard({ list_id, backendUrl }: AddCardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();

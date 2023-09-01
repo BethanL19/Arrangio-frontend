@@ -14,12 +14,7 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import axios from "axios";
-
-interface EditCommentProps {
-    comment_id: number;
-    comment_text: string;
-    backendUrl: string;
-}
+import EditCommentProps from "../interfaces/EditCommentProps";
 
 function EditComment({
     comment_id,

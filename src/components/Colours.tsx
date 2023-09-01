@@ -2,26 +2,9 @@ import { Button } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import fetchBoards from "../utils/fetchBoards";
+import ColourButtonProps from "../interfaces/ColourButtonProps";
 import BoardInfo from "../interfaces/Board";
 
-const colours = [
-    "gray",
-    "red",
-    "orange",
-    "yellow",
-    "green",
-    "teal",
-    "blue",
-    "cyan",
-    "purple",
-    "pink",
-];
-interface ColourButtonProps {
-    board: BoardInfo;
-    setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
-    setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
-    backendUrl: string;
-}
 function ColourButtons({
     board,
     setBoards,
@@ -29,6 +12,18 @@ function ColourButtons({
     backendUrl,
 }: ColourButtonProps): JSX.Element {
     const [_selectedColour, setSelectedColour] = useState(board.colour);
+    const colours = [
+        "gray",
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "teal",
+        "blue",
+        "cyan",
+        "purple",
+        "pink",
+    ];
 
     async function handleUpdateColour(board: BoardInfo, colour: string) {
         setSelectedColour(colour);

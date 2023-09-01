@@ -14,11 +14,7 @@ import {
 import { EditIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import axios from "axios";
-
-interface EditCardProps {
-    card_id: number;
-    backendUrl: string;
-}
+import EditCardProps from "../interfaces/EditCardProps";
 
 function EditCard({ card_id, backendUrl }: EditCardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();

@@ -3,12 +3,7 @@ import { IconButton } from "@chakra-ui/react";
 import axios from "axios";
 import EditCard from "./EditCard";
 import CardInfo from "./CardInfo";
-
-interface CardProps {
-    name: string;
-    card_id: number;
-    backendUrl: string;
-}
+import CardProps from "../interfaces/CardProps";
 
 function Card({ name, card_id, backendUrl }: CardProps): JSX.Element {
     async function handleDelete() {

@@ -5,13 +5,8 @@ import Card from "./Card";
 import fetchCards from "../utils/fetchCards";
 import AddCard from "./AddCard";
 import { Draggable } from "react-beautiful-dnd";
+import ListWithColourProps from "../interfaces/ListWithColourProps";
 
-interface ListWithColourProps {
-    list_id: number;
-    name: string;
-    board_colour: string;
-    backendUrl: string;
-}
 function List({
     list_id,
     name,

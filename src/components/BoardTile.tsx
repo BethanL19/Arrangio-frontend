@@ -1,15 +1,5 @@
 import { Card, Heading, CardBody } from "@chakra-ui/react";
-import BoardInfo from "../interfaces/Board";
-
-interface BoardTileProps {
-    name: string;
-    id: number;
-    setScreen: React.Dispatch<React.SetStateAction<string>>;
-    setSelectedBoard: React.Dispatch<
-        React.SetStateAction<BoardInfo | undefined>
-    >;
-    colour: string;
-}
+import BoardTileProps from "../interfaces/BoardTileProps";
 
 function BoardTile({
     name,
