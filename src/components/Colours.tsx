@@ -31,7 +31,7 @@ function ColourButtons({
         await axios.put(backendUrl + `boards/${board.board_id}`, {
             colour: colour,
         });
-        fetchBoards(setBoards);
+        fetchBoards(setBoards, backendUrl);
         setBoard({
             board_id: board.board_id,
             name: board.name,

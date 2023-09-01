@@ -16,8 +16,8 @@ function List({
     const [cards, setCards] = useState<CardInfo[]>([]);
 
     useEffect(() => {
-        fetchCards(setCards, list_id);
-    }, [cards, list_id]);
+        fetchCards(setCards, list_id, backendUrl);
+    }, [cards, list_id, backendUrl]);
 
     return (
         <div className="list" style={{ backgroundColor: board_colour }}>

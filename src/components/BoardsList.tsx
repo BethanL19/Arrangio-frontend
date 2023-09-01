@@ -13,8 +13,8 @@ function BoardsList({
     backendUrl,
 }: BoardsListProps): JSX.Element {
     useEffect(() => {
-        fetchBoards(setBoards);
-    }, [boards, setBoards]);
+        fetchBoards(setBoards, backendUrl);
+    }, [boards, setBoards, backendUrl]);
 
     return (
         <div className="boards-page">

@@ -35,8 +35,8 @@ function CardInfo({ name, card_id, backendUrl }: CardInfoProps): JSX.Element {
     const finalRef = useRef(null);
 
     useEffect(() => {
-        fetchComments(setComments, card_id);
-    }, [card_id]);
+        fetchComments(setComments, card_id, backendUrl);
+    }, [card_id, backendUrl]);
 
     async function handleAddComment() {
         await axios.post(backendUrl + "comments", {
@@ -44,17 +44,17 @@ function CardInfo({ name, card_id, backendUrl }: CardInfoProps): JSX.Element {
             text: addComment,
         });
         setAddComment("");
-        fetchComments(setComments, card_id);
+        fetchComments(setComments, card_id, backendUrl);
     }
 
     async function handleDeleteComment(comment_id: number) {
         await axios.delete(backendUrl + `comments/${comment_id}`);
-        fetchComments(setComments, card_id);
+        fetchComments(setComments, card_id, backendUrl);
     }
 
     async function handleSubmitComment(id: number, text: string) {
         await axios.put(backendUrl + `comments/${id}`, { text: text });
-        fetchComments(setComments, card_id);
+        fetchComments(setComments, card_id, backendUrl);
     }
 
     function handleEditComment(id: number, text: string) {

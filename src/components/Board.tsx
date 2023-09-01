@@ -30,9 +30,9 @@ function Board({
     }
 
     useEffect(() => {
-        fetchLists(setLists, selectedBoard.board_id);
+        fetchLists(setLists, selectedBoard.board_id, backendUrl);
         console.log(lists.length);
-    }, [lists, selectedBoard.board_id]);
+    }, [lists, selectedBoard.board_id, backendUrl]);
 
     useEffect(() => {
         if (isExploding) {
