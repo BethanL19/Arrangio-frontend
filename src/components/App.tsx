@@ -1,7 +1,7 @@
-import { Heading } from "@chakra-ui/react";
 import "./App.css";
-import BoardsList from "./BoardsList";
 import { useState } from "react";
+import { Heading } from "@chakra-ui/react";
+import BoardsList from "./BoardsList";
 import Board from "./Board";
 import BoardInfo from "../interfaces/Board";
 

@@ -1,15 +1,15 @@
-import { Button, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import ListProps from "../interfaces/List";
-import List from "./List";
-import fetchLists from "../utils/fetchLists";
-import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import axios from "axios";
-import ColourSelector from "./ColourSelector";
+import { Button, Heading } from "@chakra-ui/react";
+import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import ConfettiExplosion from "react-confetti-explosion";
 import { useSound } from "use-sound";
-import sound from "../sound.mp3";
+import { useEffect, useState } from "react";
+import List from "./List";
+import ColourSelector from "./ColourSelector";
+import ListProps from "../interfaces/List";
 import BoardProps from "../interfaces/BoardProps";
+import fetchLists from "../utils/fetchLists";
+import sound from "../sound.mp3";
 
 function Board({
     selectedBoard,

@@ -19,8 +19,8 @@ import {
     EditableTextarea,
     EditablePreview,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
 import InputEdit from "./InputEdit";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import fetchComments from "../utils/fetchComments";
 import CommentProps from "../interfaces/CommentProps";

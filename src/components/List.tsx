@@ -1,10 +1,10 @@
 import { Heading } from "@chakra-ui/react";
-import CardInfo from "../interfaces/Card";
 import { useState, useEffect } from "react";
-import Card from "./Card";
-import fetchCards from "../utils/fetchCards";
-import AddCard from "./AddCard";
 import { Draggable } from "react-beautiful-dnd";
+import Card from "./Card";
+import AddCard from "./AddCard";
+import fetchCards from "../utils/fetchCards";
+import CardInfo from "../interfaces/Card";
 import ListWithColourProps from "../interfaces/ListWithColourProps";
 
 function List({

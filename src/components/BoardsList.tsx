@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import BoardInfo from "../interfaces/Board";
 import fetchBoards from "../utils/fetchBoards";
 import BoardTile from "./BoardTile";
 import AddBoard from "./AddBoard";
+import BoardInfo from "../interfaces/Board";
 import BoardsListProps from "../interfaces/BoardListProps";
 
 function BoardsList({
