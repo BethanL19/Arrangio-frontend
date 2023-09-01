@@ -16,6 +16,11 @@ function InputEdit({ card_id, name, backendUrl }: InputEditProps): JSX.Element {
     const [isEditing, setIsEditing] = useState(false);
 
     async function handleEditCard() {
+        if (inputValue.length === 0) {
+            window.alert("Name can't be blank!");
+            return;
+        }
+
         await axios.put(backendUrl + `cards/${card_id}`, { name: inputValue });
         setIsEditing(false);
     }

@@ -25,6 +25,11 @@ function EditComment({
     const [text, setText] = useState(comment_text);
 
     async function handleEditComment() {
+        if (text.length === 0) {
+            window.alert("Comment can't be blank!");
+            return;
+        }
+
         await axios.put(backendUrl + `comments/${comment_id}`, { text: text });
 
         setText("");

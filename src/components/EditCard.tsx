@@ -16,11 +16,20 @@ import { useState } from "react";
 import axios from "axios";
 import EditCardProps from "../interfaces/EditCardProps";
 
-function EditCard({ card_id, backendUrl }: EditCardProps): JSX.Element {
+function EditCard({
+    card_id,
+    backendUrl,
+    card_name,
+}: EditCardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [name, setName] = useState("");
+    const [name, setName] = useState(card_name);
 
     async function handleEditCard() {
+        if (name.length === 0) {
+            window.alert("Name can't be blank!");
+            return;
+        }
+
         await axios.put(backendUrl + `cards/${card_id}`, { name: name });
 
         setName("");
