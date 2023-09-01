@@ -5,9 +5,9 @@ async function fetchLists(
     setLists: React.Dispatch<React.SetStateAction<ListProps[]>>,
     board_id: number
 ) {
-    const backend = "https://arrangio-backend.onrender.com/";
+    const backendUrl = "https://arrangio-backend.onrender.com/";
 
-    const response = await axios.get(backend + `lists/${board_id}`);
+    const response = await axios.get(backendUrl + `lists/${board_id}`);
 
     setLists(response.data);
 }

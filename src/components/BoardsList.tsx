@@ -6,16 +6,20 @@ import AddBoard from "./AddBoard";
 
 interface BoardsListProps {
     setScreen: React.Dispatch<React.SetStateAction<string>>;
-    setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
+    setSelectedBoard: React.Dispatch<
+        React.SetStateAction<BoardInfo | undefined>
+    >;
     boards: BoardInfo[];
     setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
+    backendUrl: string;
 }
 
 function BoardsList({
     setScreen,
-    setBoard,
+    setSelectedBoard,
     boards,
     setBoards,
+    backendUrl,
 }: BoardsListProps): JSX.Element {
     useEffect(() => {
         fetchBoards(setBoards);
@@ -23,7 +27,7 @@ function BoardsList({
 
     return (
         <div className="boards-page">
-            <AddBoard />
+            <AddBoard backendUrl={backendUrl} />
             <main className="boards-list">
                 {boards.map((board: BoardInfo, index) => (
                     <BoardTile
@@ -31,7 +35,7 @@ function BoardsList({
                         id={board.board_id}
                         key={index}
                         setScreen={setScreen}
-                        setBoard={setBoard}
+                        setSelectedBoard={setSelectedBoard}
                         colour={board.colour}
                     />
                 ))}

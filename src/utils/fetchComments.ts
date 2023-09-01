@@ -5,9 +5,9 @@ async function fetchComments(
     setComments: React.Dispatch<React.SetStateAction<CommentProps[]>>,
     card_id: number
 ) {
-    const backend = "https://arrangio-backend.onrender.com/";
+    const backendUrl = "https://arrangio-backend.onrender.com/";
 
-    const response = await axios.get(backend + `comments/${card_id}`);
+    const response = await axios.get(backendUrl + `comments/${card_id}`);
     setComments(response.data);
 }
 

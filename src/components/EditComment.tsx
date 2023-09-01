@@ -18,19 +18,19 @@ import axios from "axios";
 interface EditCommentProps {
     comment_id: number;
     comment_text: string;
+    backendUrl: string;
 }
 
 function EditComment({
     comment_id,
     comment_text,
+    backendUrl,
 }: EditCommentProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [text, setText] = useState(comment_text);
 
     async function handleEditComment() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.put(backend + `comments/${comment_id}`, { text: text });
+        await axios.put(backendUrl + `comments/${comment_id}`, { text: text });
 
         setText("");
         onClose();

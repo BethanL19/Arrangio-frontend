@@ -5,7 +5,9 @@ interface BoardTileProps {
     name: string;
     id: number;
     setScreen: React.Dispatch<React.SetStateAction<string>>;
-    setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
+    setSelectedBoard: React.Dispatch<
+        React.SetStateAction<BoardInfo | undefined>
+    >;
     colour: string;
 }
 
@@ -13,11 +15,11 @@ function BoardTile({
     name,
     id,
     setScreen,
-    setBoard,
+    setSelectedBoard,
     colour,
 }: BoardTileProps): JSX.Element {
     function handleTileClick() {
-        setBoard({ board_id: id, name: name, colour: colour });
+        setSelectedBoard({ board_id: id, name: name, colour: colour });
         setScreen("board");
     }
 

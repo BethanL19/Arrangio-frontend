@@ -17,16 +17,18 @@ import axios from "axios";
 
 interface AddCardProps {
     list_id: number;
+    backendUrl: string;
 }
 
-function AddCard({ list_id }: AddCardProps): JSX.Element {
+function AddCard({ list_id, backendUrl }: AddCardProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [name, setName] = useState("");
 
     async function handleAddCard() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.post(backend + "cards", { name: name, list_id: list_id });
+        await axios.post(backendUrl + "cards", {
+            name: name,
+            list_id: list_id,
+        });
 
         setName("");
         onClose();

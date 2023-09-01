@@ -10,11 +10,13 @@ interface ListWithColourProps {
     list_id: number;
     name: string;
     board_colour: string;
+    backendUrl: string;
 }
 function List({
     list_id,
     name,
     board_colour,
+    backendUrl,
 }: ListWithColourProps): JSX.Element {
     const [cards, setCards] = useState<CardInfo[]>([]);
 
@@ -28,7 +30,7 @@ function List({
                 <Heading marginBottom={"1vh"} marginRight={"1vw"}>
                     {name}
                 </Heading>
-                <AddCard list_id={list_id} />
+                <AddCard list_id={list_id} backendUrl={backendUrl} />
             </div>
             {cards.map((card: CardInfo, index) => (
                 <Draggable
@@ -46,6 +48,7 @@ function List({
                                 name={card.name}
                                 key={card.card_id}
                                 card_id={card.card_id}
+                                backendUrl={backendUrl}
                             />
                         </div>
                     )}

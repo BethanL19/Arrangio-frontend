@@ -16,12 +16,14 @@ interface ColourSelectorProps {
     board: BoardInfo;
     setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
     setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
+    backendUrl: string;
 }
 
 function ColourSelector({
     board,
     setBoards,
     setBoard,
+    backendUrl,
 }: ColourSelectorProps): JSX.Element {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -45,6 +47,7 @@ function ColourSelector({
                             board={board}
                             setBoards={setBoards}
                             setBoard={setBoard}
+                            backendUrl={backendUrl}
                         />
                     </DrawerBody>
                 </DrawerContent>

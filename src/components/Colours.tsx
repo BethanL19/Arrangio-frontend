@@ -20,19 +20,20 @@ interface ColourButtonProps {
     board: BoardInfo;
     setBoards: React.Dispatch<React.SetStateAction<BoardInfo[]>>;
     setBoard: React.Dispatch<React.SetStateAction<BoardInfo | undefined>>;
+    backendUrl: string;
 }
 function ColourButtons({
     board,
     setBoards,
     setBoard,
+    backendUrl,
 }: ColourButtonProps): JSX.Element {
     const [_selectedColour, setSelectedColour] = useState(board.colour);
 
     async function handleUpdateColour(board: BoardInfo, colour: string) {
         setSelectedColour(colour);
-        const backend = "https://arrangio-backend.onrender.com/";
 
-        await axios.put(backend + `boards/${board.board_id}`, {
+        await axios.put(backendUrl + `boards/${board.board_id}`, {
             colour: colour,
         });
         fetchBoards(setBoards);

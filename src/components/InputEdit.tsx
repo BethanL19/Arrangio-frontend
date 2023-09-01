@@ -13,16 +13,15 @@ import { useState } from "react";
 interface InputEditProps {
     card_id: number;
     name: string;
+    backendUrl: string;
 }
 
-function InputEdit({ card_id, name }: InputEditProps): JSX.Element {
+function InputEdit({ card_id, name, backendUrl }: InputEditProps): JSX.Element {
     const [inputValue, setInputValue] = useState(name);
     const [isEditing, setIsEditing] = useState(false);
 
     async function handleEditCard() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.put(backend + `cards/${card_id}`, { name: inputValue });
+        await axios.put(backendUrl + `cards/${card_id}`, { name: inputValue });
         setIsEditing(false);
     }
     function handleStartEditing() {

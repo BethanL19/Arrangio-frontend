@@ -27,6 +27,7 @@ import fetchComments from "../utils/fetchComments";
 interface CardInfoProps {
     name: string;
     card_id: number;
+    backendUrl: string;
 }
 
 interface CommentProps {
@@ -35,7 +36,7 @@ interface CommentProps {
     text: string;
 }
 
-function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
+function CardInfo({ name, card_id, backendUrl }: CardInfoProps): JSX.Element {
     const [addComment, setAddComment] = useState("");
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [comments, setComments] = useState<CommentProps[]>([]);
@@ -48,9 +49,7 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
     }, [card_id]);
 
     async function handleAddComment() {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.post(backend + "comments", {
+        await axios.post(backendUrl + "comments", {
             card_id: card_id,
             text: addComment,
         });
@@ -59,16 +58,12 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
     }
 
     async function handleDeleteComment(comment_id: number) {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.delete(backend + `comments/${comment_id}`);
+        await axios.delete(backendUrl + `comments/${comment_id}`);
         fetchComments(setComments, card_id);
     }
 
     async function handleSubmitComment(id: number, text: string) {
-        const backend = "https://arrangio-backend.onrender.com/";
-
-        await axios.put(backend + `comments/${id}`, { text: text });
+        await axios.put(backendUrl + `comments/${id}`, { text: text });
         fetchComments(setComments, card_id);
     }
 
@@ -103,7 +98,11 @@ function CardInfo({ name, card_id }: CardInfoProps): JSX.Element {
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>
-                        <InputEdit card_id={card_id} name={name} />
+                        <InputEdit
+                            card_id={card_id}
+                            name={name}
+                            backendUrl={backendUrl}
+                        />
                     </ModalHeader>
 
                     <ModalCloseButton />
