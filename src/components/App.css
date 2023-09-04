@@ -1,3 +1,88 @@
-html {
-    background: #f8f8f8;
+* {
+    font-family: "Lato", sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.boards-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.boards-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.board-tile {
+    border-radius: 20px;
+    margin: 1vw;
+    text-transform: capitalize;
+}
+
+.lists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /* background-color: teal; */
+    color: white;
+    padding: 4vh 4vw;
+    width: 30vw;
+    height: 80vh;
+    border-radius: 20px;
+    flex-grow: 1;
+    min-height: 100px;
+}
+
+.list-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.board-header {
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 1fr 1fr;
+}
+
+.card {
+    text-align: center;
+    width: 20vw;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1vh;
+    padding: 2vw;
+}
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.confetti {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
